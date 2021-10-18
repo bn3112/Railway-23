@@ -107,16 +107,15 @@ VALUES		('marketing'),
 			('sale'		),
             ('nhân sự'	),
             ('kỹ thuật'	),	
-            ('tài vụ'	),
+            ('đào tạo'	),
             ('kế hoạch'	),
             ('kế toán'	),
             ('tài chính'),
-            ('giao lưu'	),
+            ('tài vụ'	),
             ('quản lý'	);
 -- thêm dữ liệu vào bảng 2 - bảng vị trí--
 INSERT INTO `position`(position_name)
 VALUES				('dev'			),
-					('dev'			),
                     ('test'			),
                     ('scrum master'	),
                     ('pm'			);

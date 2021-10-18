@@ -116,7 +116,6 @@ VALUES		('marketing'),
 -- thêm dữ liệu vào bảng 2 - bảng vị trí--
 INSERT INTO `position`(position_name)
 VALUES				('dev'			),
-					('dev'			),
                     ('test'			),
                     ('scrum master'	),
                     ('pm'			);
