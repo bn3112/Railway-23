@@ -179,7 +179,7 @@ VALUES				('Câu hỏi 1: Java là gì?',	1,2,5,'2019/10/19'),
                     ('.NET là gì?',				1,2,8,'2021/10/12'),
                     ('C++ là gì?',				1,2,8,'2021/10/13'),
 					('Android là gì?',			1,2,8,'2021/10/14'),
-                    ('Fibonacy là gì',			2,2,8,'2021/10/15'),
+                    ('Fibonacci là gì',			2,2,8,'2021/10/15'),
                     ('What is your goal?',		5,2,8,'2021/10/16'),
                     ('Tâm lý học là gì?',		9,2,8,'2021/10/17');
 -- thêm dữ liệu vào bảng 9- bảng câu trả lời--
@@ -191,7 +191,7 @@ VALUES				('Java là một ngôn ngữ lập trình',				1,1),
                     ('.NET là nền tảng để phát triển website',		1,1),
                     ('C++ là nền tảng ứng dụng',					1,0),
 					('Android là hệ điều hành ứng dụng',			1,1),
-					('Fibonacy là dayx vô hạn tuân theo quy luật',	2,1),
+					('Fibonacci là dãy vô hạn tuân theo quy luật',	2,1),
                     ('Enjoy my life',								1,1),
                     ('Tâm lý học là nắm bắt cảm xúc của người khác',1,1);
 -- thêm dữ liệu vào bảng 10 - bảng đề thi--
