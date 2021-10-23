@@ -48,7 +48,7 @@ CREATE TABLE			`data types 2`(
     is_deleted_flag		BIT-- 1= Active, 0 = Delected
     );
 -- Question 2: Viết lệnh để lấy ra tất cả các thực tập sinh đã vượt qua bài test đầu vào, nhóm chúng thành các tháng sinh khác nhau
-SELECT GROUP_CONCAT(full_name ORDER BY full_name ASC),MONTH(birth_date) 
+SELECT GROUP_CONCAT(full_name ORDER BY full_name ASC) 'full_name',MONTH(birth_date) 'thang sinh' 
 FROM trainee
 GROUP BY MONTH(birth_date);
 -- Question 3: Viết lệnh để lấy ra thực tập sinh có tên dài nhất, lấy ra các thông tin sau:tên, tuổi, các thông tin cơ bản (như đã được định nghĩa trong table)

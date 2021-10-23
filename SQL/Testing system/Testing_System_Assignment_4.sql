@@ -56,8 +56,8 @@ VALUES				('hoangthiynhi@gmail.com',		'hoangnhi',		'Hoàng Thị Ý Nhi',		7,3,'
 					('Lehoangyen@gmail.com', 		'leyen',		'Lê Hoàng Yến',			3,3,'2019/10/19'),
                     ('lyquocnghi@gmail.com', 		'quocnghi',		'Lý Quốc Nghị',			2,1,'2021/10/17'),
                     ('nguyenhuyentrang@gmail.com', 	'huyentrang',	'Nguyễn Huyền Trang',	3,1,'2021/10/17'),
-                    ('nguyenduyanh@gmail.com', 		'duyanh',		'Nguyễn Duy Anh',		10,4,'2021/10/17'),	
-					('duonghoangbao@gmail.com', 	'hoangbao',		 'Dương Hoàng Bảo',		1, 2, '2021-10-19');
+                    ('nguyenduyanh@gmail.com', 		'duyanh',		'Nguyễn Duy Anh',		3,4,'2021/10/17'),	
+					('duonghoangbao@gmail.com', 	'hoangbao',		 'Dương Hoàng Bảo',		3, 2, '2021-10-19');
 -- tạo bảng nhóm--
 DROP TABLE IF EXISTS `group`;
 CREATE TABLE		`group`(
@@ -143,12 +143,12 @@ FOREIGN KEY (creator_id) REFERENCES `account`(account_id)
 );	
 -- thêm dữ liệu vào bảng 8 - bảng câu hỏi--
 INSERT INTO question(content,category_id,type_id,creator_id,create_date)
-VALUES				('Câu hỏi 1: Java là gì?',	1,2,5,'2019/10/19'),
+VALUES				('Câu hỏi 1: Java là gì?',	1,1,5,'2019/10/19'),
 					('SQL là gì?',				1,2,5,'2020/10/19'),
-                    ('Postman là gì?',			1,2,5,'2021/10/10'),
-                    ('Ruby là gì?',				1,2,5,'2021/10/11'),
-                    ('.NET là gì?',				1,2,8,'2021/10/12'),
-                    ('C++ là gì?',				1,2,8,'2021/10/13'),
+                    ('Postman là gì?',			1,1,5,'2021/10/10'),
+                    ('Ruby là gì?',				1,1,5,'2021/10/11'),
+                    ('.NET là gì?',				1,1,8,'2021/10/12'),
+                    ('C++ là gì?',				1,1,8,'2021/10/13'),
 					('Android là gì?',			1,2,8,'2021/10/14'),
                     ('Fibonacci là gì',			2,2,8,'2021/10/15'),
                     ('What is your goal?',		5,2,8,'2021/10/16'),
@@ -166,14 +166,14 @@ FOREIGN KEY (question_id) REFERENCES question(question_id)  ON DELETE CASCADE
 INSERT INTO answer(content,question_id,is_correct)
 VALUES				('Java là một ngôn ngữ lập trình',				1,1),
 					('SQL là một ngôn ngữ lập trình',				1,0),
-                    ('Postman là công cụ cho phép thao tác với API',1,1),
-                    ('Ruby là một ngôn ngữ lập trình',				1,1),
-                    ('.NET là nền tảng để phát triển website',		1,1),
-                    ('C++ là nền tảng ứng dụng',					1,0),
-					('Android là hệ điều hành ứng dụng',			1,1),
-					('Fibonacci là dãy vô hạn tuân theo quy luật',	2,1),
-                    ('Enjoy my life',								1,1),
-                    ('Tâm lý học là nắm bắt cảm xúc của người khác',1,1);
+                    ('Postman là công cụ cho phép thao tác với API',3,1),
+                    ('Ruby là một ngôn ngữ lập trình',				4,1),
+                    ('.NET là nền tảng để phát triển website',		5,1),
+                    ('C++ là nền tảng ứng dụng',					6,1),
+					('Android là hệ điều hành ứng dụng',			7,1),
+					('Fibonacci là dãy vô hạn tuân theo quy luật',	8,1),
+                    ('Enjoy my life',								9,1),
+                    ('Tâm lý học là nắm bắt cảm xúc của người khác',10,1);
 -- tạo bảng kiểm tra--
 DROP TABLE IF EXISTS exam;
 CREATE TABLE		exam(
@@ -221,72 +221,176 @@ VALUES				(1,6),
 					(4,1),
                     (6,2),
                     (7,7);
--- Question 1: Thêm ít nhất 10 record vào mỗi table
--- done
--- Question 2: lấy ra tất cả các phòng ban
-SELECT*
-FROM department;
--- Question 3: lấy ra id của phòng ban "Sale"
-SELECT department_id
-FROM department
-WHERE department_name='sale';
--- Question 4: lấy ra thông tin account có full name dài nhất
+USE testing_system;
+-- Exercise 1: Join
+-- Question 1: Viết lệnh để lấy ra danh sách nhân viên và thông tin phòng ban của họ
+SELECT *
+FROM `account` a 
+JOIN department d 
+ON a.department_id = d.department_id;
+-- Question 2: Viết lệnh để lấy ra thông tin các account được tạo sau ngày 20/12/2010
 SELECT *
 FROM `account`
-WHERE LENGTH(full_name)= 
-	(SELECT MAX(LENGTH(full_name)) 
-    FROM `account`);
--- Question 5: Lấy ra thông tin account có full name dài nhất và thuộc phòng ban có id= 3
+	WHERE create_date > '2010/12/20';
+-- Question 3: Viết lệnh để lấy ra tất cả các developer
 SELECT *
-FROM `account`
-WHERE LENGTH(full_name)= 
-		(SELECT MAX(LENGTH(full_name))
-		FROM `account`) AND department_id = 3;
--- Question 6: Lấy ra tên group đã tham gia trước ngày 20/12/2019
-SELECT group_name
+FROM `account` a 
+JOIN `position` p 
+ON a.position_id = p.position_id
+WHERE position_name = 'Dev';
+-- Question 4: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
+SELECT department_name,COUNT(d.department_id) 'so luong nv'
+FROM department d 
+JOIN `account` a 
+ON a.department_id = d.department_id
+GROUP BY d.department_id
+HAVING COUNT(d.department_id)> 3;
+-- Question 5: Viết lệnh để lấy ra danh sách câu hỏi được sử dụng trong đề thi nhiều nhất
+SELECT q.question_id,q.content,COUNT(q.question_id) 'so luong cau hoi nhieu nhat'
+FROM question q 
+JOIN exam_question eq
+ON q.question_id = eq.question_id
+GROUP BY q.question_id
+HAVING COUNT(q.question_id) = 
+	(SELECT MAX(dem_cau_hoi) as so_cau_hoi_nhieu_nhat
+    FROM
+		(SELECT COUNT(eq.question_id) AS dem_cau_hoi
+        FROM exam_question eq
+		GROUP BY eq.question_id) as nhom);
+-- Question 6: Thông kê mỗi category Question được sử dụng trong bao nhiêu Question
+SELECT cq.category_id,cq.category_name,COUNT(cq.category_id) 'so luong danh muc'
+FROM category_question cq
+LEFT JOIN question q
+ON cq.category_id = q.category_id
+GROUP BY cq.category_id;
+-- Question 7: Thông kê mỗi Question được sử dụng trong bao nhiêu Exam
+SELECT q.question_id, q.content,COUNT(q.question_id) 'so luong ca hoi'
+FROM question q
+LEFT JOIN exam_question eq
+ON q.question_id = eq.question_id
+GROUP BY q.question_id;
+-- Question 8: Lấy ra Question có nhiều câu trả lời nhất
+SELECT q.question_id,COUNT(a.question_id)'so cau hoi co cau tra loi nhieu nhat'
+FROM question q
+LEFT JOIN answer a
+ON q.question_id=a.question_id
+GROUP BY a.question_id
+HAVING COUNT(a.question_id)=
+	(SELECT MAX(dem_cau_hoi)
+    FROM 
+		(SELECT COUNT(a.question_id) AS dem_cau_hoi
+        FROM answer a
+        GROUP BY a.question_id) AS nhom);
+-- Question 9: Thống kê số lượng account trong mỗi group
+SELECT ga.account_id,g.group_id,g.group_name,COUNT(ga.account_id)'so luong tai khoan'
+FROM group_account ga
+JOIN `group` g
+ON ga.group_id=g.group_id
+GROUP BY ga.group_id;
+-- Question 10: Tìm chức vụ có ít người nhất
+SELECT p.position_id,p.position_name,COUNT(a.position_id)'so luong vi tri it nhat'
+FROM `position` p
+JOIN `account` a
+ON p.position_id=a.position_id
+GROUP BY a.position_id
+HAVING COUNT(a.position_id)=
+	(SELECT MIN(so_luong_vi_tri)
+	FROM	
+		(SELECT a1.account_id,COUNT(a1.position_id) AS so_luong_vi_tri
+        FROM `account` a1
+        GROUP BY a1.position_id) AS nhom);
+-- Question 11: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM
+SELECT d.department_name,p.position_name,COUNT(p.position_name)'so luong vi tri'
+FROM `account` a
+JOIN `position` p
+ON a.position_id=p.position_id
+JOIN department d
+ON a.department_id=d.department_id
+GROUP BY p.position_id,d.department_id;
+-- Question 12: Lấy thông tin chi tiết của câu hỏi bao gồm: thông tin cơ bản của question, loại câu hỏi, ai là người tạo ra câu hỏi, câu trả lời là gì, ...
+SELECT q.question_id,q.content,cq.category_name,a.full_name,tq.type_name,an.content,an.is_correct
+FROM question q
+JOIN category_question cq
+ON cq.category_id=q.category_id
+JOIN `account` a
+ON q.creator_id=a.account_id
+JOIN type_question tq
+ON q.type_id=tq.type_id
+JOIN answer an
+ON q.question_id=an.question_id;
+-- Question 13: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
+SELECT tq.type_id,tq.type_name,COUNT(q.type_id)'so luong loai cau hoi'
+FROM question q
+JOIN type_question tq
+ON q.type_id=tq.type_id
+GROUP BY q.type_id;
+-- Question 14:Lấy ra group không có account nào
+SELECT *
+FROM `group` g
+LEFT JOIN group_account ga
+ON g.group_id=ga.group_id
+WHERE ga.group_id is NULL;
+-- Question 15: Lấy ra group không có account nào
+SELECT *
 FROM `group`
-WHERE create_date < '2019/12/20';
--- Question 7: Lấy ra ID của question có >= 4 câu trả lời
-SELECT question_id, COUNT(answer_id) 'tổng câu trả lời)'
-FROM answer
-GROUP BY question_id
-HAVING COUNT(answer_id)>=4;
--- Question 8: Lấy ra các mã đề thi có thời gian thi >= 60 phút và được tạo trước ngày 20/12/2019
-SELECT `code`
-FROM exam
-WHERE duration > 60 AND create_date < '2019-12-20';
--- Question 9: Lấy ra 5 group được tạo gần đây nhất
+WHERE group_id NOT IN 
+	(SELECT group_id
+    FROM group_account);
+-- Question 16: Lấy ra question không có answer nào
 SELECT *
-FROM `group`
-ORDER BY create_date  DESC
-LIMIT 5;
--- select distinct (coulumn table) from table: dùng loại bỏ những người trùng tên trong một cột--
--- sắp xếp name nhân viên theo thứ tự abc
-SELECT *
-FROM `account`
-ORDER BY user_name ASC;
--- Question 10: Đếm số nhân viên thuộc department có id = 2--
-SELECT COUNT(user_name) 'số lượng nhân viên'
-FROM `account`
-GROUP BY department_id
-HAVING  department_id = 2;
--- Question 11: Lấy ra nhân viên có tên bắt đầu bằng chữ "D" và kết thúc bằng chữ "o"
-SELECT *
-FROM `account`
-WHERE full_name LIKE 'D%o';
--- Question 12: Xóa tất cả các exam được tạo trước ngày 20/12/2019
-DELETE FROM exam
-WHERE create_date < '2019/12/20';
--- Question 13: Xóa tất cả các question có nội dung bắt đầu bằng từ "câu hỏi"
-DELETE FROM question
-WHERE content LIKE 'Câu hỏi%';
-SELECT*
-from question;
--- Question 14: Update thông tin của account có id = 5 thành tên "Nguyễn Bá Lộc" và email thành loc.nguyenba@vti.com.vn
-UPDATE `account`
-SET full_name = 'Nguyễn Bá Lộc', email = 'loc.nguyenba@vti.com.vn'
-WHERE account_id = 5;
--- Question 15: update account có id = 5 sẽ thuộc group có id = 4
-UPDATE group_account
-SET group_id = 4
-WHERE account_id = 5;
+FROM question
+WHERE question_id NOT IN
+	(SELECT question_id
+    FROM answer);
+-- Question 17:a) Lấy các account thuộc nhóm thứ 1
+SELECT a.account_id,a.full_name
+FROM `account` a
+JOIN group_account ga
+ON a.account_id=ga.account_id
+WHERE ga.group_id=1;
+-- Question 17:b) Lấy các account thuộc nhóm thứ 2
+SELECT a.account_id,a.full_name
+FROM `account` a
+JOIN group_account ga
+ON a.account_id=ga.account_id
+WHERE ga.group_id=2;
+-- Question 17:c) Ghép 2 kết quả từ câu a) và câu b) sao cho không có record nào trùng nhau
+SELECT a.account_id,a.full_name
+FROM `account` a
+JOIN group_account ga
+ON a.account_id=ga.account_id
+WHERE ga.group_id=1
+UNION 
+SELECT a.account_id,a.full_name
+FROM `account` a
+JOIN group_account ga
+ON a.account_id=ga.account_id
+WHERE ga.group_id=2;
+-- Question 18:a) Lấy các group có lớn hơn 5 thành viên
+SELECT g.group_id,g.group_name,COUNT(ga.group_id)'so thanh vien'
+FROM group_account ga
+JOIN `group` g
+ON ga.group_id=g.group_id
+GROUP BY ga.group_id
+HAVING COUNT(ga.group_id)>=5;
+-- Question 18:b) Lấy các group có nhỏ hơn 7 thành viên
+SELECT g.group_id,g.group_name,COUNT(ga.group_id)'so thanh vien'
+FROM group_account ga
+JOIN `group` g
+ON ga.group_id=g.group_id
+GROUP BY ga.group_id
+HAVING COUNT(ga.group_id)<=7;
+-- Question 18:c) Ghép 2 kết quả từ câu a) và câu b)
+SELECT g.group_id,g.group_name,COUNT(ga.group_id)'so thanh vien'
+FROM group_account ga
+JOIN `group` g
+ON ga.group_id=g.group_id
+GROUP BY ga.group_id
+HAVING COUNT(ga.group_id)>=5
+UNION ALL
+SELECT g.group_id,g.group_name,COUNT(ga.group_id)'so thanh vien'
+FROM group_account ga
+JOIN `group` g
+ON ga.group_id=g.group_id
+GROUP BY ga.group_id
+HAVING COUNT(ga.group_id)<=7;
