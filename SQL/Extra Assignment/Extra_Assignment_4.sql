@@ -58,26 +58,22 @@ VALUES	(1,'Java','2020/10/23'),
 -- Question 3: Viết lệnh để lấy ra danh sách nhân viên (name) có skill Java
 SELECT e.employee_name,ek.skill_code
 FROM employee e
-JOIN employee_skill ek
-ON e.employee_number= ek.employee_number
+JOIN employee_skill ek ON e.employee_number= ek.employee_number
 WHERE skill_code='Java';
 -- Question 4: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
 SELECT d.department_name,COUNT(e.department_number)'so luong nhan vien'
 FROM employee e
-JOIN department d
-ON e.department_number=d.department_number
+JOIN department d ON e.department_number=d.department_number
 GROUP BY e.department_number
 HAVING COUNT(e.employee_number)>3;
 -- Question 5: Viết lệnh để lấy ra danh sách nhân viên của mỗi văn phòng ban.
 SELECT GROUP_CONCAT(e.employee_name ORDER BY e.employee_name ASC),d.department_name 
 FROM employee e
-JOIN department d
-ON	e.department_number=d.department_number
+LEFT JOIN department d ON	e.department_number=d.department_number
 GROUP BY d.department_number;
 -- Question 6: Viết lệnh để lấy ra danh sách nhân viên có > 1 skills.
 SELECT e.employee_name,COUNT(e.employee_number)'number of skill'
 FROM employee e
-JOIN employee_skill ek
-ON e.employee_number=ek.employee_number
+JOIN employee_skill ek ON e.employee_number=ek.employee_number
 GROUP BY e.employee_number
 HAVING COUNT(e.employee_number)>1;
