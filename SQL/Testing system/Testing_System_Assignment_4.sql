@@ -226,8 +226,7 @@ USE testing_system;
 -- Question 1: Viết lệnh để lấy ra danh sách nhân viên và thông tin phòng ban của họ
 SELECT a.full_name,d.*
 FROM `account` a 
-JOIN department d 
-ON a.department_id = d.department_id;
+JOIN department d  ON a.department_id = d.department_id;
 
 -- Question 2: Viết lệnh để lấy ra thông tin các account được tạo sau ngày 20/12/2010
 SELECT *
@@ -237,30 +236,26 @@ WHERE create_date > '2010/12/20';
 -- Question 3: Viết lệnh để lấy ra tất cả các developer
 SELECT a.full_name
 FROM `account` a 
-JOIN `position` p 
-ON a.position_id = p.position_id
+JOIN `position` p ON a.position_id = p.position_id
 WHERE p.position_name = 'Dev';
 
 -- Question 4: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
 SELECT d.department_name,COUNT(a.account_id) 'so luong nv'
 FROM department d 
-JOIN `account` a 
-ON a.department_id = d.department_id
+JOIN `account` a ON a.department_id = d.department_id
 GROUP BY a.department_id
 HAVING COUNT(a.account_id)> 3;
 
 -- Question 5: Viết lệnh để lấy ra danh sách câu hỏi được sử dụng trong đề thi nhiều nhất
 SELECT q.question_id,q.content,COUNT(q.question_id) 'so luong cau hoi nhieu nhat'
 FROM question q 
-JOIN exam_question eq
-ON q.question_id = eq.question_id
+JOIN exam_question eq ON q.question_id = eq.question_id
 GROUP BY q.question_id
 HAVING COUNT(q.question_id) = 
 	(SELECT MAX(nhom.dem_cau_hoi) AS so_cau_hoi_nhieu_nhat
-    FROM
-		(SELECT eq.question_id,COUNT(eq.question_id) AS dem_cau_hoi
-        FROM exam_question eq
-		GROUP BY eq.question_id) AS nhom);
+		FROM (SELECT eq.question_id,COUNT(eq.question_id) AS dem_cau_hoi
+			FROM exam_question eq
+			GROUP BY eq.question_id) AS nhom);
 select *
 from question;
 select *
@@ -268,34 +263,29 @@ from exam_question;
 -- Question 6: Thông kê mỗi category Question được sử dụng trong bao nhiêu Question
 SELECT cq.category_name,q.content,COUNT(q.question_id) 'so luong danh muc'
 FROM category_question cq 
-LEFT JOIN question q
-ON cq.category_id = q.category_id
+LEFT JOIN question q ON cq.category_id = q.category_id
 GROUP BY cq.category_id;
 
 -- Question 7: Thông kê mỗi Question được sử dụng trong bao nhiêu Exam
 SELECT q.question_id, q.content,COUNT(eq.exam_id) 'so luong ca hoi'
 FROM question q
-LEFT JOIN exam_question eq
-ON q.question_id = eq.question_id
+LEFT JOIN exam_question eq ON q.question_id = eq.question_id
 GROUP BY q.question_id;
 
 -- Question 8: Lấy ra Question có nhiều câu trả lời nhất
 SELECT q.content,COUNT(a.answer_id)'so cau hoi co cau tra loi nhieu nhat'
 FROM question q
-LEFT JOIN answer a
-ON q.question_id=a.question_id
+LEFT JOIN answer a ON q.question_id=a.question_id
 GROUP BY a.question_id
 HAVING COUNT(a.answer_id)=
 	(SELECT MAX(dem_cau_tra_loi)
-    FROM 
-		(SELECT COUNT(a.answer_id) AS dem_cau_tra_loi
-        FROM answer a
-        GROUP BY a.answer_id) AS nhom);
+    FROM (SELECT COUNT(a.answer_id) AS dem_cau_tra_loi
+			FROM answer a
+			GROUP BY a.answer_id) AS nhom);
 -- Question 9: Thống kê số lượng account trong mỗi group
 SELECT ga.account_id,g.group_name,COUNT(ga.account_id)'so luong tai khoan'
 FROM group_account ga
-RIGHT JOIN `group` g
-ON ga.group_id=g.group_id
+RIGHT JOIN `group` g ON ga.group_id=g.group_id
 GROUP BY ga.group_id;
 -- Question 10: Tìm chức vụ có ít người nhất
 SELECT *
@@ -310,8 +300,8 @@ HAVING COUNT(a.account_id)=
 	(SELECT MIN(so_luong_nv) AS so_luong_nv_it_nhat
 		FROM (SELECT p.position_id, COUNT(a.account_id) AS so_luong_nv
 			FROM `account` a
-            RIGHT JOIN `position` p ON a.position_id = p.position_id
-			GROUP BY p.position_id) AS nhom);
+				RIGHT JOIN `position` p ON a.position_id = p.position_id
+				GROUP BY p.position_id) AS nhom);
 		
 -- Question 11: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM
 SELECT d.department_name,p.position_name,COUNT(a.account_id)'so luong nv'
