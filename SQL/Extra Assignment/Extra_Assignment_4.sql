@@ -62,8 +62,8 @@ JOIN employee_skill ek ON e.employee_number= ek.employee_number
 WHERE skill_code='Java';
 -- Question 4: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
 SELECT d.department_name,COUNT(e.department_number)'so luong nhan vien'
-FROM employee e
-JOIN department d ON e.department_number=d.department_number
+FROM department d
+JOIN employee e ON d.department_number=e.department_number
 GROUP BY e.department_number
 HAVING COUNT(e.employee_number)>3;
 -- Question 5: Viết lệnh để lấy ra danh sách nhân viên của mỗi văn phòng ban.
