@@ -20,18 +20,21 @@ VALUES		('marketing'),
             ('tài chính'),
             ('giao lưu'	),
             ('quản lý'	);
+            
 -- tạo bảng vị trí--
 DROP TABLE IF EXISTS `position`;
 CREATE TABLE `position`(
 	position_id		TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     position_name	ENUM('Dev','Test','Scrum Master','PM')
 );
+
 -- thêm dữ liệu vào bảng 2 - bảng vị trí--
 INSERT INTO `position`(position_name)
 VALUES				('Dev'			),
                     ('Test'			),
                     ('Scrum Master'	),
                     ('PM'			);
+                    
 -- tạo bảng tài khoản--
 DROP TABLE IF EXISTS `account`;
 CREATE TABLE `account`(
@@ -45,6 +48,7 @@ CREATE TABLE `account`(
 FOREIGN KEY (department_id) REFERENCES department(department_id),
 FOREIGN KEY (position_id) REFERENCES `position`(position_id)
 );	
+
 -- thêm dữ liệu vào bảng 3 - bảng tài khoản-- 
 INSERT INTO `account`(email,user_name, full_name,department_id,position_id,create_date)
 VALUES				('hoangthiynhi@gmail.com',		'hoangnhi',		'Hoàng Thị Ý Nhi',		7,3,'2019/10/19'),
@@ -58,6 +62,7 @@ VALUES				('hoangthiynhi@gmail.com',		'hoangnhi',		'Hoàng Thị Ý Nhi',		7,3,'
                     ('nguyenhuyentrang@gmail.com', 	'huyentrang',	'Nguyễn Huyền Trang',	3,1,'2021/10/17'),
                     ('nguyenduyanh@gmail.com', 		'duyanh',		'Nguyễn Duy Anh',		3,4,'2021/10/17'),	
 					('duonghoangbao@gmail.com', 	'hoangbao',		 'Dương Hoàng Bảo',		3, 2, '2021-10-19');
+                    
 -- tạo bảng nhóm--
 DROP TABLE IF EXISTS `group`;
 CREATE TABLE		`group`(
@@ -67,6 +72,7 @@ CREATE TABLE		`group`(
     create_date		DATE,
 FOREIGN KEY (creator_id) REFERENCES `account`(account_id)
 );	
+
 -- thêm dữ liệu vào bảng 4 - bảng các nhóm--
 INSERT INTO `group`(group_name,creator_id,create_date)
 VALUES				('sale 1', 		8,'2019/10/19'),
@@ -79,6 +85,7 @@ VALUES				('sale 1', 		8,'2019/10/19'),
                     ('hỗ trợ 2', 	4,'2021/10/12'),
                     ('marketing 1', 1,'2021/10/12'),
                     ('marketing 2', 1,'2021/10/12');
+                    
 -- tạo bảng nhóm tài khoản-- 
 DROP TABLE IF EXISTS group_account;
 CREATE TABLE		group_account(
@@ -89,33 +96,38 @@ PRIMARY KEY(group_id,account_id),
 FOREIGN KEY (group_id) REFERENCES `group`(group_id),
 FOREIGN KEY (account_id) REFERENCES `account`(account_id)
 );	
+
 -- thêm dữ liệu vào bảng 5 - bảng các nhóm tài khoản--
 INSERT INTO group_account(group_id,account_id,join_date)
 VALUES				(1,1,'2019/10/19'),
-					(2,2,'2020/10/19'),
-                    (2,10,'2021/10/11'),
-                    (3,4,'2021/10/12'),
-					(4,5,'2021/10/14'),
-                    (3,6,'2021/10/15'),
-                    (5,7,'2021/10/16'),
+					(1,2,'2020/10/19'),
+                    (1,10,'2021/10/11'),
+                    (1,4,'2021/10/12'),
+					(1,5,'2021/10/14'),
+                    (1,6,'2021/10/15'),
+                    (1,7,'2021/10/16'),
                     (6,8,'2021/10/17'),
                     (2,9,'2021/10/17');
+                    
 -- tạo bảng loại câu hỏi--
 DROP TABLE IF EXISTS 	type_question;
 CREATE TABLE			type_question(
 	type_id			TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     type_name		ENUM('essay','multiple-choice')
 );
+
 -- thêm dữ liệu vào bảng 6 - bảng loại câu hỏi--
 INSERT INTO type_question(type_name)
 VALUES				('essay'			),
 					('multiple-choice'	);
+                    
 -- tạo bảng danh mục câu hỏi--
 DROP TABLE IF EXISTS 	category_question;
 CREATE TABLE			category_question(
 	category_id		TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
     category_name	VARCHAR(50) CHAR SET utf8mb4 NOT NULL UNIQUE
 );
+
 -- thêm dữ liệu vào bảng 7 - bảng danh mục câu hỏi--
 INSERT INTO category_question(category_name)
 VALUES				('tin học'	),
@@ -128,11 +140,12 @@ VALUES				('tin học'	),
                     ('giáo dục'	),
                     ('tâm lý'	),
 					('địa lý'	);
+                    
 -- tạo bảng câu hỏi--
 DROP TABLE IF EXISTS question;
 CREATE TABLE		question(
 	question_id		TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    content			VARCHAR(250) CHAR SET utf8mb4 NOT NULL,
+    content			VARCHAR(3000) CHAR SET utf8mb4 NOT NULL,
     category_id		TINYINT NOT NULL,
     type_id			TINYINT NOT NULL,
     creator_id		SMALLINT NOT NULL,
@@ -141,6 +154,7 @@ FOREIGN KEY (category_id) REFERENCES category_question(category_id),
 FOREIGN KEY (type_id) REFERENCES type_question(type_id),
 FOREIGN KEY (creator_id) REFERENCES `account`(account_id)  
 );	
+
 -- thêm dữ liệu vào bảng 8 - bảng câu hỏi--
 INSERT INTO question(content,category_id,type_id,creator_id,create_date)
 VALUES				('Câu hỏi 1: Java là gì?',	1,1,5,'2019/10/19'),
@@ -150,18 +164,31 @@ VALUES				('Câu hỏi 1: Java là gì?',	1,1,5,'2019/10/19'),
                     ('.NET là gì?',				1,1,8,'2021/10/12'),
                     ('C++ là gì?',				1,1,8,'2021/10/13'),
 					('Android là gì?',			1,2,8,'2021/10/14'),
-                    ('Fibonacci là gì',			2,2,8,'2021/10/15'),
-                    ('What is your goal?',		5,2,8,'2021/10/16'),
+                    ('Fibonacci là dãy số tự nhiên vô hạn tuân theo quy luật số trước sau bằng tổng hai số trước',			2,2,8,'2021/10/15'),
+                    ('Chiều 27/10, phát biểu tiếp thu ý kiến đại biểu Quốc hội tại hội trường Diên Hồng, Bộ trưởng Bộ Lao động - Thương binh và Xã hội Đào Ngọc Dung cho biết, đây là những ý kiến rất tâm huyết, trí tuệ và thiết thực. Sau kỳ họp này, Bộ trưởng tin tưởng rằng sẽ có bước phát triển mới về nhận thức, về trách nhiệm và hành động trong triển khai và phát triển chính sách bảo hiểm xã hội - một trong những trụ cột quan trọng nhất về chính sách an sinh xã hội.
+
+Theo Bộ trưởng Đào Ngọc Dung, mặc dù bảo hiểm xã hội của chúng ta còn non trẻ (bắt đầu từ năm 1995), đến nay đã có bước phát triển tương đối nhanh, phù hợp với thực tiễn Việt Nam và cơ bản đáp ứng, phù hợp với thông lệ quốc tế. Chúng ta đã triển khai 8 loại hình bảo hiểm xã hội (trên thế giới có 9 loại hình). Đến nay, quỹ bảo hiểm xã hội đã trở thành quỹ tài chính Nhà nước có quy mô lớn nhất.
+Apart from counting words and characters, our online editor can help you to improve word choice and writing style, and, optionally, help you to detect grammar mistakes and plagiarism. To check word count, simply place your cursor into the text box above and start typing. Youll see the number of characters and words increase or decrease as you type, delete, and edit them. You can also copy and paste text from another program over into the online editor above. The Auto-Save feature will make sure you wont lose any changes while editing, even if you leave the site and come back later. Tip: Bookmark this page now.
+
+Knowing the word count of a text can be important. For example, if an author has to write a minimum or maximum amount of words for an article, essay, report, story, book, paper, you name it. WordCounter will help to make sure its word count reaches a specific requirement or stays within a certain limit.
+
+In addition, WordCounter shows you the top 10 keywords and keyword density of the article youre writing. This allows you to know which keywords you use how often and at what percentages. This can prevent you from over-using certain words or word combinations and check for best distribution of keywords in your writing.
+
+In the Details overview you can see the average speaking and reading time for your text, while Reading Level is an indicator of the education level a person would need in order to understand the words you’re using.
+
+Disclaimer: We strive to make our tools as accurate as possible but we cannot guarantee it will always be so. ?',		5,2,8,'2021/10/16'),
                     ('Tâm lý học là gì?',		9,2,8,'2021/10/17');
+                    
 -- tạo bảng câu trả lời--
 DROP TABLE IF EXISTS answer;
 CREATE TABLE		answer(
 	answer_id		TINYINT NOT NULL PRIMARY KEY AUTO_INCREMENT,
-    content			VARCHAR(250) CHAR SET utf8mb4 NOT NULL,
+    content			VARCHAR(1000) CHAR SET utf8mb4 NOT NULL,
     question_id		TINYINT NOT NULL,
     is_correct		BOOLEAN,  -- True-1 or False-0 
 FOREIGN KEY (question_id) REFERENCES question(question_id)  ON DELETE CASCADE 
 );
+
 -- thêm dữ liệu vào bảng 9- bảng câu trả lời--
 INSERT INTO answer(content,question_id,is_correct)
 VALUES				('Java là một ngôn ngữ lập trình',				1,1),
@@ -174,6 +201,7 @@ VALUES				('Java là một ngôn ngữ lập trình',				1,1),
 					('Fibonacci là dãy vô hạn tuân theo quy luật',	8,1),
                     ('Enjoy my life',								9,1),
                     ('Tâm lý học là nắm bắt cảm xúc của người khác',10,1);
+                    
 -- tạo bảng kiểm tra--
 DROP TABLE IF EXISTS exam;
 CREATE TABLE		exam(
@@ -187,6 +215,7 @@ CREATE TABLE		exam(
 FOREIGN KEY (category_id) REFERENCES category_question(category_id),
 FOREIGN KEY (creator_id) REFERENCES `account`(account_id)
 );	
+
 -- thêm dữ liệu vào bảng 10 - bảng đề thi--
 INSERT INTO exam(`code`,title,category_id,duration,creator_id,create_date)
 VALUES				('MS1','Tin học cơ bản 1',	1,'90',5,'2019/10/19'),
@@ -200,6 +229,7 @@ VALUES				('MS1','Tin học cơ bản 1',	1,'90',5,'2019/10/19'),
                     ('MS9','Tin học đại cương 2',	1,'30',5,'2021/10/17'),
                     ('MS11','Tin học đại cương 3',	1,'30',5,'2018/10/17'),
                     ('MS10','Tâm lý học',		1,'60',5,'2021/10/17');
+                    
 -- tạo bảng câu hỏi kiểm tra--
 DROP TABLE IF EXISTS exam_question;
 CREATE TABLE		exam_question(
@@ -209,6 +239,7 @@ PRIMARY KEY (exam_id,question_id),
 FOREIGN KEY (exam_id) REFERENCES exam(exam_id) ON DELETE CASCADE,
 FOREIGN KEY (question_id) REFERENCES question(question_id) ON DELETE CASCADE 
 );
+
 -- thêm dữ liệu vào bảng 11 - bảng câu hỏi đề thi--
 INSERT INTO exam_question(exam_id,question_id)
 VALUES				(1,6),
