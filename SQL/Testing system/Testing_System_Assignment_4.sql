@@ -106,23 +106,11 @@ FROM `group` g LEFT JOIN group_account ga ON g.group_id = ga.group_id
 WHERE ga.group_id IS NULL;
 
 SELECT * FROM group_account;
-
-
--- Question 15: Lấy ra group không có account nào
-SELECT *
-FROM `group`
-WHERE group_id NOT IN 
-	(SELECT group_id
-    FROM group_account);
-    
-    
     
 -- Question 16: Lấy ra question không có answer nào
-SELECT *
-FROM question
-WHERE question_id NOT IN
-	(SELECT question_id
-    FROM answer);
+SELECT q.content
+FROM question q LEFT JOIN answer an ON q.question_id = an.question_id
+WHERE an.answer_id IS NULL;
     
     
 -- Question 17:a) Lấy các account thuộc nhóm thứ 1
