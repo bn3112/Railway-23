@@ -62,8 +62,8 @@ JOIN address ad ON sp.StateProvinceID = ad.StateProvinceID
 WHERE cr.`Name` IN ('Germany','Canada')
 ORDER BY cr.`Name` ASC;
 -- Question 3:
--- Từ bảng SalesPerson, chúng ta lấy cột BusinessEntityID (là định danh của người
--- sales), Bonus and the SalesYTD (là đã sale được bao nhiêu người trong năm nay)
+-- Từ bảng SalesPerson, chúng ta lấy cột BusinessEntityID (là định danh của người sales),
+-- Bonus and the SalesYTD (là đã sale được bao nhiêu người trong năm nay)
 -- Từ bảng SalesOrderHeader, chúng ta lấy cột SalesOrderID OrderDate
 -- Hướng dẫn: Join SalesOrderHeader và SalesPerson để chỉ lấy ra kết quả non-Internet
 -- orders (order được xử lý trên Internet có OnlineOrderFlag = 1 và cột SalesPersonID = null)

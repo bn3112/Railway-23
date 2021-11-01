@@ -17,8 +17,8 @@ WHERE p.position_name = 'Dev';
 
 -- Question 4: Viết lệnh để lấy ra danh sách các phòng ban có >3 nhân viên
 SELECT d.department_name,COUNT(a.account_id) 'so luong nv'
-FROM department d JOIN `account` a ON a.department_id = d.department_id
-GROUP BY a.department_id
+FROM department d JOIN `account` a ON d.department_id = a.department_id
+GROUP BY d.department_id
 HAVING COUNT(a.account_id)> 3;
 
 -- Question 5: Viết lệnh để lấy ra danh sách câu hỏi được sử dụng trong đề thi nhiều nhất
@@ -35,30 +35,30 @@ select * from question;
 select * from exam_question;
 
 -- Question 6: Thông kê mỗi category Question được sử dụng trong bao nhiêu Question
-SELECT cq.category_name,q.content,COUNT(q.question_id) 'so luong danh muc'
+SELECT cq.category_name,COUNT(q.question_id) 'so luong danh muc'
 FROM category_question cq LEFT JOIN question q ON cq.category_id = q.category_id
-	GROUP BY q.category_id;
+	GROUP BY cq.category_id;
 
 -- Question 7: Thông kê mỗi Question được sử dụng trong bao nhiêu Exam
 SELECT q.question_id, q.content,COUNT(eq.exam_id) 'so luong cau hoi'
 FROM question q LEFT JOIN exam_question eq ON q.question_id = eq.question_id
-GROUP BY eq.question_id;
+GROUP BY q.question_id;
 
 -- Question 8: Lấy ra Question có nhiều câu trả lời nhất
 SELECT q.content,COUNT(a.answer_id)'so cau hoi co cau tra loi nhieu nhat'
-FROM question q JOIN answer a ON q.question_id = a.question_id
+FROM question q  LEFT JOIN answer a ON q.question_id = a.question_id
 GROUP BY a.question_id
 HAVING COUNT(a.answer_id) =
 	(SELECT MAX(dem_cau_tra_loi)
-    FROM (SELECT COUNT(a.answer_id) AS dem_cau_tra_loi
+		FROM (SELECT COUNT(a.answer_id) AS dem_cau_tra_loi
 			FROM answer a
-			GROUP BY a.question_id) AS nhom);
+				GROUP BY a.question_id) AS nhom);
             
             
 -- Question 9: Thống kê số lượng account trong mỗi group
-SELECT ga.account_id,g.group_name,COUNT(ga.account_id)'so luong tai khoan'
+SELECT g.group_name,COUNT(ga.account_id)'so luong tai khoan'
 FROM `group` g LEFT JOIN group_account ga ON g.group_id = ga.group_id
-GROUP BY ga.group_id;
+GROUP BY g.group_id;
 
 -- Question 10: Tìm chức vụ có ít người nhất
 SELECT * FROM `account`;
@@ -71,15 +71,15 @@ HAVING COUNT(a.account_id) =
 	(SELECT MIN(so_luong_nv) AS so_luong_nv_it_nhat
 		FROM (SELECT a.position_id, COUNT(a.account_id) AS so_luong_nv
 			FROM `position` p LEFT JOIN `account` a ON p.position_id = a.position_id
-				GROUP BY a.position_id) AS nhom);                
+				GROUP BY p.position_id) AS nhom);                
                 
 			
 -- Question 11: Thống kê mỗi phòng ban có bao nhiêu dev, test, scrum master, PM
-SELECT d.department_name,p.position_name,COUNT(a.account_id)'so luong nv'
+SELECT d.department_name,p.position_name,COUNT(p.position_id)'so luong'
 FROM department d
 LEFT JOIN `account` a ON d.department_id = a.department_id
 LEFT JOIN `position` p ON a.position_id = p.position_id
-GROUP BY p.position_id,d.department_id;
+GROUP BY d.department_id,p.position_id;
 
 
 SELECT * FROM `account`;
@@ -96,21 +96,21 @@ LEFT JOIN type_question tq ON q.type_id = tq.type_id
 LEFT JOIN answer an ON q.question_id = an.question_id;
 
 -- Question 13: Lấy ra số lượng câu hỏi của mỗi loại tự luận hay trắc nghiệm
-SELECT tq.type_id,tq.type_name,COUNT(q.type_id)'so luong loai cau hoi'
+SELECT tq.type_id,tq.type_name,COUNT(tq.type_id)'so luong loai cau hoi'
 FROM type_question tq LEFT JOIN question q ON q.type_id = tq.type_id
 GROUP BY q.type_id;
 
 -- Question 14:Lấy ra group không có account nào
 SELECT g.group_name
 FROM `group` g LEFT JOIN group_account ga ON g.group_id = ga.group_id
-WHERE ga.group_id IS NULL;
+WHERE ga.account_id IS NULL;
 
 SELECT * FROM group_account;
     
 -- Question 16: Lấy ra question không có answer nào
 SELECT q.content
 FROM question q LEFT JOIN answer an ON q.question_id = an.question_id
-WHERE an.answer_id IS NULL;
+WHERE an.question_id IS NULL;
     
     
 -- Question 17:a) Lấy các account thuộc nhóm thứ 1
