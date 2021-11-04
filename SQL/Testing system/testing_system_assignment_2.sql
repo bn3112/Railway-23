@@ -20,7 +20,9 @@ VALUES		('marketing'),
             ('tài chính'),
             ('giao lưu'	),
             ('quản lý'	),
-            ('waiting room');
+            ('waiting room'),
+            (' room'),
+            ('abc');
             
 -- tạo bảng vị trí--
 DROP TABLE IF EXISTS `position`;
@@ -45,24 +47,26 @@ CREATE TABLE `account`(
     full_name		VARCHAR(30) CHAR SET utf8mb4 NOT NULL,
     department_id	TINYINT NOT NULL,
     position_id		TINYINT NOT NULL,
+    gender			CHAR(6),
 	create_date		DATE,
 FOREIGN KEY (department_id) REFERENCES department(department_id) ON UPDATE CASCADE ON DELETE CASCADE,
 FOREIGN KEY (position_id) REFERENCES `position`(position_id) ON UPDATE CASCADE ON DELETE CASCADE
 );	
 
 -- thêm dữ liệu vào bảng 3 - bảng tài khoản-- 
-INSERT INTO `account`(email,user_name, full_name,department_id,position_id,create_date)
-VALUES				('hoangthiynhi@gmail.com',		'hoangnhi',		'Hoàng Thị Ý Nhi',		7,3,'2019/10/19'),
-					('nguythanhhang@gmail.com', 	'thanhhang',	'Ngụy Thanh Hằng',		8,2,'2021/10/12'),
-                    ('caoanhtuyet@gmail.com', 		'anhtuyet',		'Cao Ánh Tuyết',		5,1,'2021/10/13'),
-                    ('nguyenquocsang@gmail.com',	'quocsang',		'Nguyễn Quốc Sang',		4,4,'2021/10/14'),
-                    ('nguyenvanton@gmail.com', 		'nguyenton',	'Nguyễn Văn Tôn',		6,3,'2021/10/15'),
-                    ('phamgiabao@gmail.com', 		'giabao',		'Phạm Gia Bảo',			9,1,'2021/10/16'),
-					('Lehoangyen@gmail.com', 		'leyen',		'Lê Hoàng Yến',			3,3,'2019/10/19'),
-                    ('lyquocnghi@gmail.com', 		'quocnghi',		'Lý Quốc Nghị',			2,1,'2021/10/17'),
-                    ('nguyenhuyentrang@gmail.com', 	'huyentrang',	'Nguyễn Huyền Trang',	3,1,'2021/10/17'),
-                    ('nguyenduyanh@gmail.com', 		'duyanh',		'Nguyễn Duy Anh',		3,4,'2021/10/17'),	
-					('duonghoangbao@gmail.com', 	'hoangbao',		 'Dương Hoàng Bảo',		3, 2, '2021-10-19');
+INSERT INTO `account`(email,user_name, full_name,department_id,position_id,gender,create_date)
+VALUES				('hoangthiynhi@gmail.com',		'hoangnhi',		'Hoàng Thị Ý Nhi',		7,3,'nu','2019/10/19'),
+					('nguythanhhang@gmail.com', 	'thanhhang',	'Ngụy Thanh Hằng',		8,2,'nu','2021/10/12'),
+                    ('caoanhtuyet@gmail.com', 		'anhtuyet',		'Cao Ánh Tuyết',	5,1,'nu',	'2021/10/13'),
+                    ('nguyenquocsang@gmail.com',	'quocsang',		'Nguyễn Quốc Sang',	4,4,'nam','2021/10/14'),
+                    ('nguyenvanton@gmail.com', 		'nguyenton',	'Nguyễn Văn Tôn',	6,3,'nam',	'2021/10/15'),
+                    ('phamgiabao@gmail.com', 		'giabao',		'Phạm Gia Bảo',		9,1,'nam',	'2021/10/16'),
+					('Lehoangyen@gmail.com', 		'leyen',		'Lê Hoàng Yến',		3,3,'nu','2019/10/19'),
+                    ('lyquocnghi@gmail.com', 		'quocnghi',		'Lý Quốc Nghị',		3,1,'nam',	'2021/10/17'),
+                    ('nguyenhuyentrang@gmail.com', 	'huyentrang',	'Nguyễn Huyền Trang',	3,1,'nu','2021/10/17'),
+                    ('admin@gmail.com', 			'admin',		'Admin',			3,4,'nam',	'2021/10/17'),	
+                    ('nguyenduyanh@gmail.com', 		'duyanh',		'Nguyễn Duy Anh',		3,4,'nam','2021/10/17'),	
+					('duonghoangbao@gmail.com', 	'hoangbao',		 'Dương Hoàng Bảo',		3, 2,'nam', '2021-10-19');
                     
 -- tạo bảng nhóm--
 DROP TABLE IF EXISTS `group`;
@@ -242,9 +246,9 @@ VALUES				('MS1','Tin học cơ bản 1',	1,'90',5,'2019/10/19'),
                     ('MS6','Anh văn',			5,'30',5,'2021/10/14'),
                     ('MS7','Tin học 2',			1,'60',5,'2021/10/15'),
                     ('MS8','Tin học đại cương 1',	1,'15',5,'2021/10/16'),
-                    ('MS9','Tin học đại cương 2',	1,'30',5,'2021/10/17'),
+                    ('MS9','Tin học đại cương 2',	1,'30',5,'2021/11/1'),
                     ('MS11','Tin học đại cương 3',	1,'30',5,'2018/10/17'),
-                    ('MS10','Tâm lý học',		1,'60',5,'2021/10/17');
+                    ('MS10','Tâm lý học',		1,'60',5,'2021/10/31');
                     
 -- tạo bảng câu hỏi kiểm tra--
 DROP TABLE IF EXISTS exam_question;
