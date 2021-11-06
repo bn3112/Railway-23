@@ -5,7 +5,7 @@ DROP TABLE IF EXISTS PHONG;
 ALTER DATABASE testing_system CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 CREATE TABLE PHONG(
 	MaPhong			TINYINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    LoaiPhong		VARCHAR(20) CHAR SET utf8mb4,
+    LoaiPhong		VARCHAR(20) CHAR SET utf8mb4 UNIQUE,
     SoKhachToiDa	TINYINT,
     GiaPhong		DECIMAL(10,2),
     MoTa			VARCHAR(100) CHAR SET utf8mb4
@@ -55,7 +55,7 @@ VALUES	(1,1,'2020/12/31',200000,'đã đặt cọc','Đã đặt'),
 DROP TABLE IF EXISTS DICH_VU_DI_KEM;
 CREATE TABLE DICH_VU_DI_KEM(
 	MaDV		TINYINT PRIMARY KEY AUTO_INCREMENT NOT NULL,
-    TenDV		VARCHAR(30) CHAR SET utf8mb4,
+    TenDV		VARCHAR(30) CHAR SET utf8mb4 UNIQUE NOT NULL,
 	DonViTinh	VARCHAR(20) CHAR SET utf8mb4,
     DonGia		DECIMAL(10,2)
 );
@@ -65,15 +65,16 @@ VALUES		('Bia','Lon',	'25000'),
 			('Nước ngọt','Lon','25000'),
 			('Bánh sinh nhật','Chiếc','250000'),
 			('Đồ ăn','Đĩa','50000');
-DROP TABLE IF EXISTS CHI_TIET_SU_DUNG_DICH_VU;
-CREATE TABLE CHI_TIET_SU_DUNG_DICH_VU(
+DROP TABLE IF EXISTS CHI_TIET_SU_DUNG_DV;
+CREATE TABLE CHI_TIET_SU_DUNG_DV(
 	MaDatPhong	TINYINT NOT NULL,
     MaDV		TINYINT NOT NULL,
     SoLuong		TINYINT,
+PRIMARY KEY(MaDatPhong, MaDV),
 FOREIGN KEY (MaDatPhong) REFERENCES DAT_PHONG(MaDatPhong) ON DELETE CASCADE ON UPDATE CASCADE,   
 FOREIGN KEY (MaDV) REFERENCES DICH_VU_DI_KEM(MaDV) ON DELETE CASCADE ON UPDATE CASCADE
 );
-INSERT INTO CHI_TIET_SU_DUNG_DICH_VU(MaDatPhong,MaDV,SoLuong)
+INSERT INTO CHI_TIET_SU_DUNG_DV(MaDatPhong,MaDV,SoLuong)
 VALUES		(1,1,10),
 			(1,2,5),
 			(2,3,10),
@@ -83,11 +84,11 @@ VALUES		(1,1,10),
 -- 1. Tạo Bảng và thêm tối thiểu 5 bản ghi cho mỗi Bảng 
 -- 2. Hiển thị loại phòng đã thuê, tên dịch vụ đã sử dụng của khách hàng có tên là “Nguyễn Khánh Linh” 
 SELECT p.Loaiphong,dv.TenDV
-FROM DAT_PHONG dp 
-	JOIN KHACH_HANG kh ON dp.MaKH = kh.MaKH
-	JOIN PHONG p ON dp.MaPhong = p.Maphong
-    JOIN CHI_TIET_SU_DUNG_DICH_VU ct ON dp.MaDatPhong = ct.MaDatPhong
-    JOIN DICH_VU_DI_KEM dv ON ct.MaDV = dv.MaDV
+FROM KHACH_HANG kh
+LEFT JOIN DAT_PHONG dp  ON dp.MaKH = kh.MaKH
+LEFT JOIN PHONG p ON dp.MaPhong = p.Maphong
+LEFT JOIN CHI_TIET_SU_DUNG_DV ct ON dp.MaDatPhong = ct.MaDatPhong
+LEFT JOIN DICH_VU_DI_KEM dv ON ct.MaDV = dv.MaDV
 WHERE TenKH = 'Nguyễn Khánh Linh';
 -- 3. Viết Function để trả về Số điện thoại của Khách hàng thuê nhiều phòng nhất trong năm 2020 
 -- k dùng dc hàm khi só người cùng thuê bằng nhau
@@ -97,12 +98,12 @@ CREATE FUNCTION f_so_dien_thoai_khach_hang() RETURNS INT
 BEGIN 
 	DECLARE so_dien_thoai INT;
 		SELECT SoDT INTO so_dien_thoai
-        FROM KHACH_HANG kh JOIN DAT_PHONG dp ON kh.MaKH = dp.MaKH
+        FROM KHACH_HANG kh LEFT JOIN DAT_PHONG dp ON kh.MaKH = dp.MaKH
         WHERE YEAR(NgayDat) = '2020'
         GROUP BY kh.MaKH
-        HAVING COUNT(dp.MaDatPhong) = (SELECT MAX(dem_phong)
-									FROM (SELECT kh.MaKH,COUNT(dp.MaDatPhong) AS dem_phong
-											FROM KHACH_HANG kh JOIN DAT_PHONG dp ON kh.MaKH = dp.MaKH
+        HAVING COUNT(dp.MaPhong) = (SELECT MAX(dem_phong)
+									FROM (SELECT kh.MaKH,COUNT(dp.MaPhong) AS dem_phong
+											FROM KHACH_HANG kh LEFT JOIN DAT_PHONG dp ON kh.MaKH = dp.MaKH
                                             WHERE YEAR(NgayDat) = '2020'
                                             GROUP BY kh.MaKH) AS TEMP);
 		RETURN  so_dien_thoai;
@@ -116,8 +117,8 @@ DELIMITER $$
 CREATE PROCEDURE sp_update_gia_phong()
 BEGIN 
 	UPDATE PHONG
-    SET GiaPhong = GiaPhong(NOW() + 10000)
-    WHERE SoKhachToiDa >= 5;
+    SET GiaPhong = GiaPhong + 10000
+    WHERE SoKhachToiDa > 5;
 END $$
 DELIMITER ;
 SELECT * FROM PHONG;
