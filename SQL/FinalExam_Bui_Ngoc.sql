@@ -72,10 +72,9 @@ GROUP BY (hd.madt);
 -- mã số, họ tên và tên đề tài
 -- (Nếu sinh viên chưa có đề tài thì column tên đề tài sẽ in ra "Chưa có")
  CREATE OR REPLACE VIEW v_SinhVienInfo AS
- SELECT sv.masv,sv.hoten,dt.tendt,COUNT(hd.masv),
- CASE WHEN count(hd.masv) = 0
-    THEN 'Chưa có' ELSE COUNT(hd.masv)
-    END AS dem_sv	
+ SELECT sv.masv,sv.hoten,
+ CASE WHEN dt.tendt IS NULL
+    THEN 'Chưa có' ELSE dt.tendt END AS tendt
 	FROM SinhVien sv
 	LEFT JOIN HuongDan hd ON sv.masv = hd.masv
     LEFT JOIN DeTai dt ON hd.madt = dt.madt
