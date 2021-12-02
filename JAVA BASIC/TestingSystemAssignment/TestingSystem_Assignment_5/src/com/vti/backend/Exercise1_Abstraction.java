@@ -9,7 +9,6 @@ import com.vti.entity.News;
 public class Exercise1_Abstraction {
 	private ArrayList<News> listNews;
 	private Scanner scanner;
-
 	public Exercise1_Abstraction() {
 		listNews = new ArrayList<News>();
 		scanner = new Scanner(System.in);
@@ -17,11 +16,9 @@ public class Exercise1_Abstraction {
 	public void addNews(News new1) {
 		this.listNews.add(new1);
 	}
-
 	public void question1() {
 		menu();
 	}
-
 	private void menu() {
 		boolean isOk = false;
 		while (!isOk) {
@@ -55,20 +52,20 @@ public class Exercise1_Abstraction {
 				News news = new News(ID, title, publishDate, author, content, rates);
 				listNews.add(news);
 				System.out.println("You put in news: " + news.toString());
-				isOk = true;
 				break;
 			case 2:
 				for (News addnew : listNews) {
 					addnew.Display();
 				}
-				isOk = true;
 				break;
 			case 3:
+				
 				for (News addnew : listNews)
+					
 					addnew.Calculate();
 				for (News addnew : listNews)
 					addnew.Display();
-				isOk = true;
+				;
 				break;
 			case 4:
 				System.out.println("Exit!");

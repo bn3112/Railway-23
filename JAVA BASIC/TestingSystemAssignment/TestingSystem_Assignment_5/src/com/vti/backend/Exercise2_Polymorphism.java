@@ -15,6 +15,20 @@ public class Exercise2_Polymorphism {
 	public Exercise2_Polymorphism() {
 		listStudent = new ArrayList<Student>();
 		scanner = new Scanner(System.in);
+		Student student = new Student("Nguyen Van A", 1);
+		Student student1 = new Student("Nguyen Van B", 1);
+		Student student2 = new Student("Nguyen Van C", 1);
+		Student student3 = new Student("Nguyen Van D", 2);
+		Student student4 = new Student("Nguyen Van E", 2);
+		Student student5 = new Student("Nguyen Van A", 2);
+		Student student6 = new Student("Nguyen Van B", 3);
+		listStudent.add(student6);
+		listStudent.add(student5);
+		listStudent.add(student4);
+		listStudent.add(student3);
+		listStudent.add(student2);
+		listStudent.add(student1);
+		listStudent.add(student);
 	}
 
 	public void question1() {
@@ -29,10 +43,13 @@ public class Exercise2_Polymorphism {
 			int num = scanner.nextInt();
 			switch (num) {
 			case 1:
-				for (int i = 0; i <= 10; i++) {
+				for (int i = 1; i <= 10; i++) {
 					Random random = new Random();
-					int select = random.nextInt(3);
-					Student st = new Student(i + 1, "Student " + (i + 1), select);
+					int select = random.nextInt(3) + 1;
+					scanner.nextLine();
+					System.out.println("Nhập tên sinh viên thứ " + i);
+					String ten = scanner.nextLine();
+					Student st = new Student(i, ten, select);
 					listStudent.add(st);
 					for (Student student : listStudent) {
 						System.out.println(student);
@@ -46,9 +63,9 @@ public class Exercise2_Polymorphism {
 				}
 				break;
 			case 3:
-				System.out.println("Gọi nhóm 1 đi học bài");
+				System.out.println("Gọi nhóm 1 đi học bài ");
 				for (Student student : listStudent) {
-					if (student.getGroup() == 1) {
+					if (student.getGroup()== 1) {
 						student.hocBai();
 					}
 				}
@@ -65,8 +82,9 @@ public class Exercise2_Polymorphism {
 				System.out.println("Thoát!!!!");
 				return;
 			}
-			scanner.close();
+			
 		}
+		scanner.close();
 	}
 
 	public void question3() {
@@ -91,6 +109,7 @@ public class Exercise2_Polymorphism {
 		HinhVuong canh = new HinhVuong(a, a);
 		System.out.println("Diện tích của hình vuông là: " + canh.tinhDienTich());
 	}
+
 	private void tinhChuViHinhChuNhat() {
 		System.out.println("\nTính chu vi của hình chữ nhật:");
 		System.out.println("Nhập vào cạnh a:");
@@ -100,7 +119,7 @@ public class Exercise2_Polymorphism {
 		HinhChuNhat canh = new HinhChuNhat(a, b);
 		System.out.println("Chu vi của hình chữ nhật là: " + canh.tinhChuVi());
 	}
-	
+
 	private void tinhDienTichChuNhat() {
 		System.out.println("\nTính diện tích của hình vuông:");
 		System.out.println("Nhập vào cạnh a:");

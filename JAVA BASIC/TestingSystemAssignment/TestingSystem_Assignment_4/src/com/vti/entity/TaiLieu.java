@@ -2,6 +2,9 @@ package com.vti.entity;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+
+import com.vti.academy.Department;
 
 public class TaiLieu {
 	private String maTaiLieu;
@@ -11,7 +14,7 @@ public class TaiLieu {
 	public TaiLieu(String maTaiLieu, String tenNhaXuatBan, int soBanPhatHanh) {
 		this.maTaiLieu = maTaiLieu;
 		this.tenNhaXuatBan = tenNhaXuatBan;
-		this.soBanPhatHanh=soBanPhatHanh;
+		this.soBanPhatHanh = soBanPhatHanh;
 	}
 
 	public String getmaTaiLieu() {
@@ -38,8 +41,6 @@ public class TaiLieu {
 		this.setSoBanPhatHanh(soBanPhatHanh);
 	}
 
-	
-
 	@Override
 	public String toString() {
 		return "TaiLieu [maTaiLieu=" + maTaiLieu + ", tenNhaXuatBan=" + tenNhaXuatBan + ", soBanPhatHanh="
@@ -54,4 +55,14 @@ public class TaiLieu {
 		this.soBanPhatHanh = soBanPhatHanh;
 	}
 
+	public boolean maTaiLieuEqualTo(String target) {
+		return this.maTaiLieu.equals(target);
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		String objmaTaiLieu = ((TaiLieu) obj).maTaiLieu;
+		return maTaiLieu.equals(objmaTaiLieu);
+	}
+	
 }

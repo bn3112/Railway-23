@@ -37,17 +37,17 @@ public void setGroup(int group) {
 }
 @Override
 public void diemDanh() {
-	System.out.println(name + "điểm danh");
+	System.out.println(name + " điểm danh");
 	
 }
 @Override
 public void hocBai() {
-	System.out.println(name + "đang học bài");
+	System.out.println(name + " đang học bài");
 	
 }
 @Override
 public void diDonVeSinh() {
-	System.out.println(name + "đang đi dọn vệ sinh");
+	System.out.println(name + " đang đi dọn vệ sinh");
 	
 }
 
