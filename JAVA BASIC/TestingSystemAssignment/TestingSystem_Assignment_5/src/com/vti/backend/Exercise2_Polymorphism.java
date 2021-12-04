@@ -65,7 +65,7 @@ public class Exercise2_Polymorphism {
 			case 3:
 				System.out.println("Gọi nhóm 1 đi học bài ");
 				for (Student student : listStudent) {
-					if (student.getGroup()== 1) {
+					if (student.getGroup() == 1) {
 						student.hocBai();
 					}
 				}
@@ -82,52 +82,26 @@ public class Exercise2_Polymorphism {
 				System.out.println("Thoát!!!!");
 				return;
 			}
-			
+
 		}
 		scanner.close();
 	}
 
 	public void question3() {
-		tinhChuViHinhVuong();
-		tinhDienTichHinhVuong();
-		tinhChuViHinhChuNhat();
-		tinhDienTichChuNhat();
-	}
-
-	private void tinhChuViHinhVuong() {
-		System.out.println("Tính chu vi của hình vuông:");
-		System.out.println("Nhập vào cạnh a:");
-		float a = scanner.nextFloat();
-		HinhVuong canh = new HinhVuong(a, a);
-		System.out.println("Chu vi của hình vuông là: " + canh.tinhChuVi());
-	}
-
-	private void tinhDienTichHinhVuong() {
-		System.out.println("Tính diện tích của hình vuông:");
-		System.out.println("Nhập vào cạnh của hình vuông:");
-		float a = scanner.nextFloat();
-		HinhVuong canh = new HinhVuong(a, a);
-		System.out.println("Diện tích của hình vuông là: " + canh.tinhDienTich());
-	}
-
-	private void tinhChuViHinhChuNhat() {
-		System.out.println("\nTính chu vi của hình chữ nhật:");
+		System.out.println("Chào mừng bạn đến thế giới hình học ");
+		System.out.println("Tính S và P của hình chữ nhật nhập a khác b");
+		System.out.println("Tính S và P của hình chữ nhật nhập a bằng b ");
 		System.out.println("Nhập vào cạnh a:");
 		float a = scanner.nextFloat();
 		System.out.println("Nhập vào cạnh b:");
 		float b = scanner.nextFloat();
 		HinhChuNhat canh = new HinhChuNhat(a, b);
-		System.out.println("Chu vi của hình chữ nhật là: " + canh.tinhChuVi());
+		if ( a == b) {
+			System.out.println(canh.tinhChuVi(a, b));
+			System.out.println(canh.tinhDienTich(a, b));
+		} else {
+			System.out.println(canh.tinhChuVi(a, b));
+			System.out.println(canh.tinhDienTich(a, b));
+		}
 	}
-
-	private void tinhDienTichChuNhat() {
-		System.out.println("\nTính diện tích của hình vuông:");
-		System.out.println("Nhập vào cạnh a:");
-		float a = scanner.nextFloat();
-		System.out.println("Nhập vào cạnh b:");
-		float b = scanner.nextFloat();
-		HinhChuNhat canh = new HinhChuNhat(a, b);
-		System.out.println("Diện tích của hình vuông là: " + canh.tinhDienTich());
-	}
-
 }

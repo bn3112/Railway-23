@@ -7,7 +7,6 @@ Department departments;
 
 Department(){};
 Department(int i, String name){
-	this.id = id;
 	this.name= name;
 			
 }

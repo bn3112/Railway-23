@@ -1,11 +1,5 @@
 package com.vti.entity;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Objects;
-
-import com.vti.academy.Department;
-
 public class TaiLieu {
 	private String maTaiLieu;
 	private String tenNhaXuatBan;

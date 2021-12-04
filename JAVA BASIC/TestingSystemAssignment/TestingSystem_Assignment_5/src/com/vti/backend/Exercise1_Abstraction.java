@@ -9,17 +9,22 @@ import com.vti.entity.News;
 public class Exercise1_Abstraction {
 	private ArrayList<News> listNews;
 	private Scanner scanner;
+
 	public Exercise1_Abstraction() {
 		listNews = new ArrayList<News>();
 		scanner = new Scanner(System.in);
 	}
+
 	public void addNews(News new1) {
 		this.listNews.add(new1);
 	}
+
 	public void question1() {
 		menu();
 	}
+
 	private void menu() {
+
 		boolean isOk = false;
 		while (!isOk) {
 			System.out.println("Welcome!!!!");
@@ -31,48 +36,58 @@ public class Exercise1_Abstraction {
 			int i = scanner.nextInt();
 			switch (i) {
 			case 1:
-				System.out.println("Input ID");
-				int ID = scanner.nextInt();
-				scanner.nextLine();
-				System.out.println("Input Title");
-				String title = scanner.nextLine();
-				System.out.println("Input PublishDate");
-				String publishDate = scanner.nextLine();
-				System.out.println("Input Author");
-				String author = scanner.nextLine();
-				System.out.println("Input Content");
-				String content = scanner.nextLine();
-				System.out.println("Input Rate 1");
-				int rate1 = scanner.nextInt();
-				System.out.println("Input Rate 2");
-				int rate2 = scanner.nextInt();
-				System.out.println("Input Rate 3");
-				int rate3 = scanner.nextInt();
-				int[] rates = { rate1, rate2, rate3 };
-				News news = new News(ID, title, publishDate, author, content, rates);
-				listNews.add(news);
-				System.out.println("You put in news: " + news.toString());
+				addnew();
 				break;
 			case 2:
-				for (News addnew : listNews) {
-					addnew.Display();
-				}
+				viewNews();
 				break;
 			case 3:
-				
-				for (News addnew : listNews)
-					
-					addnew.Calculate();
-				for (News addnew : listNews)
-					addnew.Display();
-				;
+				averageRate();
 				break;
 			case 4:
 				System.out.println("Exit!");
 				return;
-
+			default:
+				System.out.println("Mời bạn nhập lại số");
+				break;
 			}
 		}
 		scanner.close();
+	}
+
+	private void averageRate() {
+		for (News addnew : listNews) {
+			addnew.Calculate();
+			addnew.Display();
+		}
+
+	}
+
+	private void viewNews() {
+		for (News addnew : listNews) {
+			addnew.Display();
+		}
+	}
+
+	private void addnew() {
+		System.out.println("Input Title");
+		String title = scanner.nextLine();
+		scanner.nextLine();
+		System.out.println("Input PublishDate");
+		String publishDate = scanner.nextLine();
+		System.out.println("Input Author");
+		String author = scanner.nextLine();
+		System.out.println("Input Content");
+		String content = scanner.nextLine();
+		System.out.println("Input Rate 1");
+		int rate1 = scanner.nextInt();
+		System.out.println("Input Rate 2");
+		int rate2 = scanner.nextInt();
+		System.out.println("Input Rate 3");
+		int rate3 = scanner.nextInt();
+		int[] rates = { rate1, rate2, rate3 };
+		News news = new News(title, publishDate, author, content, rates);
+		listNews.add(news);
+		System.out.println("You put in news: " + news);
 	}
 }

@@ -37,7 +37,6 @@ public class Student {
 // Tạo constructor cho phép khi khởi tạo mỗi student thì người
 //dùng sẽ nhập vào tên, hometown và có điểm học lực = 0
 	public Student(String name, String hometown) {
-		this.id = id;
 		this.name = name;
 		this.hometown = hometown;
 		this.score = 0;
