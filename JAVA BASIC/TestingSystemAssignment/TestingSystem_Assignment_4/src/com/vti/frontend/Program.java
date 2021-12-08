@@ -11,11 +11,13 @@ import com.vti.backend.Exercise5_Inheritance;
 import com.vti.entity.Bao;
 import com.vti.entity.CanBo;
 import com.vti.entity.CongNhan;
+import com.vti.entity.Contact;
 import com.vti.entity.KySu;
 import com.vti.entity.NhanVien;
 import com.vti.entity.Sach;
 import com.vti.entity.TaiLieu;
 import com.vti.entity.TapChi;
+import com.vti.entity.VietnamesePhone;
 
 public class Program {
 	private static ArrayList<TaiLieu> taiLieuArr;
@@ -25,10 +27,10 @@ public class Program {
 	
 	public static void main(String[] args) {
 //		Exercise1_Contructor ex1 = new Exercise1_Contructor();
-//		 Exercise1_Contructor.question1(); //Tạo constructor cho department:
-//		 Exercise1_Contructor.question2(); //Tạo constructor cho Account:
+//		Exercise1_Contructor.question1(); //Tạo constructor cho department:
+//		Exercise1_Contructor.question2(); //Tạo constructor cho Account:
 //		Exercise3_Access_Modifier ex3 = new Exercise3_Access_Modifier();
-//		 Exercise3_Access_Modifier.question1(); //private access modifier
+//		Exercise3_Access_Modifier.question1(); //private access modifier
 //		Exercise4_Encapsulation ex4 = new Exercise4_Encapsulation();
 //		ex4.question1b(); 
 //							/* b) Tạo constructor cho phép khi khởi tạo mỗi student thì người dùng sẽ nhập
@@ -45,27 +47,38 @@ public class Program {
 		CanBo cb = new CanBo("A", 30, "Nu","HN");
 		CanBo cb5 = new CanBo("B", 31, "Nu","HN");
 		CanBo cb6 = new CanBo("C",31, "Nu","HN");
-		ex5.addCanBo(cb);
-		ex5.addCanBo(cb1);
-		ex5.addCanBo(cb2);
-		ex5.addCanBo(cb3);
-		ex5.addCanBo(cb4);
-		ex5.addCanBo(cb5);
-		ex5.addCanBo(cb6);
-		
-		ex5.question1();
+//		ex5.addCanBo(cb);
+//		ex5.addCanBo(cb5);
+//		ex5.addCanBo(cb6);
+//		ex5.addKySu(cb2);
+//		ex5.addCongNhan(cb1);
+//		ex5.addNhanVien(cb4);
+//		ex5.addNhanVien(cb3);
+		CanBo  cba =  new CanBo("Thanh", 19,"Nam","HN");
+		CanBo  c =  new CanBo("Thanh nguyen", 16,"Nam","HN");
+		ArrayList<CanBo>	k = new ArrayList<CanBo>();
+		k.add(cba);
+		k.add(c);
+//		ex5.question1();
 		
 		
 		Sach a = new Sach("Sach1", "Giao duc", 2, "Nguyen Ngoc Anh", 100);
 		Sach a2 = new Sach("Sach2", "Giao duc", 3, "Nguyen Ngoc Anh", 100);
 		TapChi b = new TapChi("TC1", "Giao duc", 2, 10, 10, 10);
-		ex5.addTaiLieu(b);
-		ex5.addTaiLieu(a2);
-		ex5.addTaiLieu(a);
-		ex5.addSach(a);
-		ex5.addSach(a2);
-		ex5.addTapChi(b);
+//		ex5.addTaiLieu(b);
+//		ex5.addTaiLieu(a2);
+//		ex5.addTaiLieu(a);
+//		ex5.addSach(a);
+//		ex5.addSach(a2);
+//		ex5.addTapChi(b);
 		//ex5.question4();
+		VietnamesePhone ex6 = new VietnamesePhone();
+
+		ex6.insertContact("Nhung", "08794258224");
+		ex6.insertContact("Nga", "08794258224");
+		ex6.insertContact("Nam", "08794258224");
+		
+		ex6.vietnamesePhone();
 	}
 
 }

@@ -17,8 +17,8 @@ public static void main(String[] args) {
 //	ex1.addNews(new2);
 //	ex1.question1();
 	Exercise2_Polymorphism ex2= new Exercise2_Polymorphism();
-	ex2.question1();
-	ex2.question3();
+//	ex2.question1();
+//	ex2.question3();
 }
 }
 

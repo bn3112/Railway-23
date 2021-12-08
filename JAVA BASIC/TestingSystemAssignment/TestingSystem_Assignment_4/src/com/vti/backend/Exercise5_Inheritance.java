@@ -21,6 +21,9 @@ public class Exercise5_Inheritance {
 	private ArrayList<Sach> sachArr;
 	private ArrayList<Bao> baoArr;
 	private ArrayList<TapChi> tapChiArr;
+//	private ArrayList<CongNhan> congNhanArr;
+//	private ArrayList<KySu> kySuArr;
+//	private ArrayList<NhanVien>nhanVienArr;
 	private TaiLieu tailieu;
 	private ArrayList<CanBo> canBoArr;
 	private CanBo canbo;
@@ -33,6 +36,39 @@ public class Exercise5_Inheritance {
 		baoArr = new ArrayList<Bao>();
 		tapChiArr = new ArrayList<TapChi>();
 	}
+//	public void addKySu(KySu ks){
+//		this.kySuArr.add(ks);
+//	}
+//	public void addCongNhan(CongNhan cn){
+//		this.congNhanArr.add(cn);
+//	}
+//	public void addNhanVien(NhanVien nv){
+//		this.nhanVienArr.add(nv);
+//	}
+//
+//	public ArrayList<CongNhan> getCongNhanArr() {
+//		return congNhanArr;
+//	}
+//
+//	public void setCongNhanArr(ArrayList<CongNhan> congNhanArr) {
+//		this.congNhanArr = congNhanArr;
+//	}
+//
+//	public ArrayList<KySu> getKySuArr() {
+//		return kySuArr;
+//	}
+//
+//	public void setKySuArr(ArrayList<KySu> kySuArr) {
+//		this.kySuArr = kySuArr;
+//	}
+//
+//	public ArrayList<NhanVien> getNhanVienArr() {
+//		return nhanVienArr;
+//	}
+//
+//	public void setNhanVienArr(ArrayList<NhanVien> nhanVienArr) {
+//		this.nhanVienArr = nhanVienArr;
+//	}
 
 	public ArrayList<Sach> getSachArr() {
 		return sachArr;
@@ -106,7 +142,7 @@ public class Exercise5_Inheritance {
 			System.out.println("Mời bạn chọn chức năng ");
 			System.out.println("1. Thêm mới cán bộ");
 			System.out.println("2. Tìm kiếm theo họ tên");
-			System.out.println("3. Hiện thị thông tin về danh sách các cán bộ");
+			System.out.println("3. Hiển thị thông tin về danh sách các cán bộ");
 			System.out.println("4. Nhập vào tên của cán bộ và delete cán bộ đó");
 			System.out.println("5. Thoát khỏi chương trình");
 			int i = scanner.nextInt();
@@ -198,14 +234,14 @@ public class Exercise5_Inheritance {
 		scanner.nextLine();
 		boolean isExists = false;
 		for (CanBo cb : canBoArr) {
-			if (canbo.getTen().equalsIgnoreCase(ten)) {
+			if (cb.getTen().equalsIgnoreCase(ten)) {
 				System.out.println(cb.toString());
 				isExists = true;
 			}
 		}
-		if (!isExists) {
-			System.out.println("Không tìm thấy  !!!");
-		}
+//		if (!isExists) {
+//			System.out.println("Không tìm thấy  !!!");
+//		}
 
 	}
 
